@@ -1,24 +1,20 @@
-export default function Page(){
+import styles from "@/app/page.module.scss"
+import CardPost from "@/app/ui/card-post";
+
+export default function Page() {
   return (
     <div>
-      <header className="header">
-        <div className="container header__container">
-          <a href="#" className="header__logo">Your name</a>
-          <nav className="header__nav">
-            <ul className="header__list">
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Newsletter</a></li>
-            </ul>
-          </nav>
-          <div className="mobile-menu">
-            <span className="mobile-menu__1"></span>
-            <span className="mobile-menu__2"></span>
-            <span className="mobile-menu__3"></span>
-          </div>
-        </div>
-      </header>
+      <p className={styles.subAnnounce}>Recent blog posts</p>
+      <div className={styles.recentPosts}>
+        <CardPost />
+        <CardPost />
+        <CardPost />
+        <CardPost />
+      </div>
+      <div className={styles.allPosts}>
+
+      </div>
+      
     </div>
-  )
+  );
 }

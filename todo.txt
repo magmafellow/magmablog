@@ -1,0 +1,2 @@
+* Read out NextJS Authorization guide on the official website
+* Impelement DataBase Schema

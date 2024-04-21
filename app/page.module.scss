@@ -1,0 +1,19 @@
+.subAnnounce {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+.recentPosts {
+  display: grid;
+}
+
+@media (min-width: 834px) {
+}
+
+@media (min-width: 1024px) {
+  .recentPosts {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 250px)
+  }
+}
