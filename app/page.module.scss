@@ -8,12 +8,26 @@
   display: grid;
 }
 
+.allPosts {
+  display: grid;
+}
+
 @media (min-width: 834px) {
+  .allPosts {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 16px;
+  }
 }
 
 @media (min-width: 1024px) {
   .recentPosts {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: repeat(3, 250px)
+    grid-template-rows: repeat(3, min-content);
+    column-gap: 15px;
+    grid-row-gap: 7px; 
+  }
+
+  .allPosts {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
