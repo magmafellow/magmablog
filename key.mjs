@@ -1,0 +1,1 @@
+export default 'win7&'

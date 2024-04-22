@@ -9,6 +9,8 @@
 # testing
 /coverage
 
+/key.mjs
+
 # next.js
 /.next/
 /out/
