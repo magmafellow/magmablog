@@ -21,13 +21,13 @@ async function createDB() {
     console.log("<- magmablog database already exists!");
     return;
   } finally {
-    console.log("<- createDB function is done")
-    await pool.end()
+    console.log("<- createDB function is done");
+    await pool.end();
   }
   console.log("<- created magmablog database");
 }
 
-async function createAuthorTable(){
+async function createAuthorTable() {
   const pool = new Pool({
     host: "localhost",
     user: "postgres",
@@ -37,7 +37,7 @@ async function createAuthorTable(){
   });
 
   try {
-    console.log('-> creating author Table')
+    console.log("-> creating author Table");
     await pool.query(`
       CREATE TABLE IF NOT EXISTS author (
           author_id SERIAL PRIMARY KEY,
@@ -47,16 +47,16 @@ async function createAuthorTable(){
           email VARCHAR(50),
           password VARCHAR(30) NOT NULL
         );
-        `)
-      console.log('<- completed author Table');
-      await pool.end();
+        `);
+    console.log("<- completed author Table");
+    await pool.end();
   } catch (error) {
     console.log(error);
-    throw error
+    throw error;
   }
 }
 
-async function createPostTable(){
+async function createPostTable() {
   const pool = new Pool({
     host: "localhost",
     user: "postgres",
@@ -66,7 +66,7 @@ async function createPostTable(){
   });
 
   try {
-    console.log('-> creating post Table')
+    console.log("-> creating post Table");
     await pool.query(`
       CREATE TABLE IF NOT EXISTS post (
         post_id SERIAL PRIMARY KEY,
@@ -75,11 +75,65 @@ async function createPostTable(){
         time_created TIMESTAMP NOT NULL,
         time_updated TIMESTAMP NOT NULL
       );
-    `)
-    console.log('<- completed post Table')
+    `);
+    console.log("<- completed post Table");
+    pool.end();
   } catch (error) {
-    console.log(error)
-    throw error
+    console.log(error);
+    throw error;
+  }
+}
+
+async function createTagTable() {
+  const pool = new Pool({
+    host: "localhost",
+    user: "postgres",
+    database: "magmablog",
+    password: password,
+    port: 5432,
+  });
+
+  try {
+    console.log("-> creating tag Table");
+
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS tag (
+        tag_id SERIAL PRIMARY KEY,
+        name VARCHAR(15) NOT NULL,
+        description TEXT
+      );
+    `);
+    console.log("<- completed tag table");
+    await pool.end();
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+async function createIntermediaryPostTagTable() {
+  const pool = new Pool({
+    host: "localhost",
+    user: "postgres",
+    database: "magmablog",
+    password: password,
+    port: 5432,
+  });
+
+  try {
+    console.log("-> creating Intermediary post_tag Table");
+    pool.query(`
+      CREATE TABLE IF NOT EXISTS post_tag (
+        post_id INTEGER REFERENCES post (post_id),
+        tag_id INTEGER REFERENCES tag (tag_id),
+        PRIMARY KEY(post_id, tag_id)
+      );
+    `);
+    console.log("<- completed post_tag Table");
+    await pool.end();
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 }
 
@@ -87,8 +141,10 @@ async function main() {
   await createDB();
   await createAuthorTable();
   await createPostTable();
+  await createTagTable();
+  await createIntermediaryPostTagTable();
 
-  console.log('-=Seed Script done=-')
+  console.log("-=Seed Script done=-");
 }
 
 main();
