@@ -1,2 +1,3 @@
 * Read out NextJS Authorization guide on the official website
 * Impelement DataBase Schema
+* Fix author Table - add an `author` column that contains a unique username of an author.

@@ -1,4 +1,4 @@
-import styles from "@/app/page.module.scss"
+import styles from "@/app/blog/page.module.scss"
 import CardPost from "@/app/ui/card-post";
 
 export default function Page() {

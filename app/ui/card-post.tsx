@@ -2,8 +2,6 @@ import styles from "@/app/ui/card-post.module.scss";
 
 export default function CardPost() {
 
-  
-  
   return (
     <div className={styles.postBox}>
       <div className={styles.imgBox}>

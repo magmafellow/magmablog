@@ -1,0 +1,43 @@
+$passive-bg-color: #3538cd;
+$passive-fore-color: #eef4ff;
+
+$active-bg-color: #c11574;
+$active-fore-color: #fdf2fa;
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+  min-height: 100vh;
+  gap: 30px;
+}
+
+.modeSwitcher {
+  display: flex;
+  gap: 70px;
+}
+
+.switchButton {
+  padding: 8px 16px;
+  border-radius: 10px;
+  color: $passive-fore-color;
+  background: $passive-bg-color;
+  transition: .27s;
+  cursor: pointer;
+}
+
+.switchButton:active {
+  transition: .07s;
+  transform: scale(1.05);
+}
+
+.switchButton[data-active="active"] {
+  color: $active-fore-color;
+  background: $active-bg-color;
+  filter: drop-shadow(0 0 0.55rem rgb(218, 112, 133));
+}
+
+.hidden {
+  display: none;
+}
