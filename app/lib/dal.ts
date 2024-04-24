@@ -25,7 +25,7 @@ export const verifySession = cache(async () => {
     redirect("/login");
   }
 
-  return { isAuth: true, userId: session.userId };
+  return { isAuth: true, userId: session?.userId };
 });
 
 export const getUser = cache(async () => {
@@ -35,7 +35,7 @@ export const getUser = cache(async () => {
   }
 
   try {
-    const r = await pool.query("SELECT * FROM person WHERE id = $1", [
+    const r = await pool.query("SELECT * FROM author WHERE author_id = $1", [
       session.userId,
     ]);
     const user = r.rows[0];

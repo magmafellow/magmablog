@@ -1,7 +1,7 @@
 "use server";
 
 import { createSession } from "@/app/lib/session";
-import { SignupFormSchema, FormState } from "@/app/lib/definitions";
+import { SignupFormSchema, LoginFormSchema, FormState } from "@/app/lib/definitions";
 import { cookies } from "next/headers";
 import { deleteSession } from "@/app/lib/session";
 import { redirect } from "next/navigation";
@@ -60,13 +60,15 @@ export async function signup(state: FormState, formData: FormData) {
 
 export async function login(state: FormState, formData: FormData) {
   // 1. Validate form fields
-  const validatedFields = SignupFormSchema.safeParse({
+  const validatedFields = LoginFormSchema.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
   });
 
   // If any form fields are invalid, return early
   if (!validatedFields.success) {
+    console.log('validated fields are not good')
+    console.log(validatedFields.error.flatten().fieldErrors)
     return {
       errors: validatedFields.error.flatten().fieldErrors,
     };
@@ -82,9 +84,15 @@ export async function login(state: FormState, formData: FormData) {
 
   const user = res.rows[0];
 
+  if(!user) {
+    return {
+      message: "Something is incorrect. Try again!",
+    };
+  }
+
   if (password === user.password) {
     // 4. Create user session
-    await createSession(user.id);
+    await createSession(user.author_id);
   } else {
     return {
       message: "Credentials are wrong. Try again!",
